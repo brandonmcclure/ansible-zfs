@@ -11,6 +11,9 @@
 - include_tasks: ubuntu.yml
   when: ansible_distribution == "Ubuntu" and zfs_install_update == true
 
+- include_tasks: Archlinux.yml
+  when: ansible_distribution == "Archlinux" and zfs_install_update == true
+
 - include_tasks: manage_zfs.yml
 
 - include_tasks: samba.yml

@@ -7,6 +7,9 @@ zfs_create_filesystems: false
 # Defines if ZFS pool(s) are created
 zfs_create_pools: false
 
+# DANGEROUS Will pass a -f flag to commands to create pools
+zfs_force: false
+
 # Overwrite debian release
 # debian_release:
 debian_use_backports: True

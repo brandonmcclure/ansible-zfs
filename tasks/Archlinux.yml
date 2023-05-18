@@ -1,0 +1,24 @@
+---
+- name: Get kernel version
+  command: uname -r
+  register: kernel_output
+
+- name: Set kernel_version variable
+  set_fact:
+    kernel_version: "{{ kernel_output.stdout }}"
+- name: set arch_zfs_packages
+  set_fact:
+    arch_zfs_packages: "linux{{kernel_version}}-zfs"
+- name: set arch_zfs_services
+  set_fact:
+    arch_zfs_services: 
+      - zfs-import-cache.service
+      - zfs.target
+      - zfs-import.target
+      - zfs-mount.service
+- name: enable/start zfs services
+  ansible.builtin.systemd:
+    name: "{{ item }}"
+    state: started
+    enabled: true
+  with_items: "{{ arch_zfs_services }}"
